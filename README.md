@@ -1,13 +1,12 @@
 # Команда Кабинетный Болид
-![General](.......)
+![General](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/General.jpg)
 
 ### Робот, созданный для решения задачи WRO FutureEngineers 2023
 ### © Федоров Тимофей, Беззубцев Федор
 
 <br>
 
-## Видео заезда нашего робота на [Youtube](...)
-
+## Видео заезда нашего робота на [Youtube](https://www.youtube.com/watch?v=HyZGGjBNKJ4&ab_channel=qZer0)
 <br>
 
 ## Введение
@@ -22,12 +21,12 @@
   - Папка "readme_photo" содержит фото, используемые в README.md файле
 
 ## Фото робота
-  ![Front]([...](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Front.jpg))
+  ![Front]((https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Front.jpg)
   ![Back](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Back.jpg)
   ![Right](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Right.jpg)
-  ![Left]([...](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Left.jpg))
-  ![Top]([...](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Top.jpg))
-  ![Bottom]([...](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Bottom.jpg))
+  ![Left](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Left.jpg)
+  ![Top](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Top.jpg)
+  ![Bottom](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Bottom.jpg)
   
   *Если картинки не открываются, проверьте папку "robot_photo", пожалуйста
 
