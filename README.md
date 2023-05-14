@@ -22,12 +22,12 @@
   - Папка "readme_photo" содержит фото, используемые в README.md файле
 
 ## Фото робота
-  ![Front](...)
+  ![Front]([...](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Front.jpg))
   ![Back](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Back.jpg)
-  ![Right](...)
-  ![Left](...)
-  ![Top](...)
-  ![Bottom](...)
+  ![Right](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Right.jpg)
+  ![Left]([...](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Left.jpg))
+  ![Top]([...](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Top.jpg))
+  ![Bottom]([...](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Bottom.jpg))
   
   *Если картинки не открываются, проверьте папку "robot_photo", пожалуйста
 
