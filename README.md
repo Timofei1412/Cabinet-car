@@ -21,7 +21,8 @@
   - Папка "readme_photo" содержит фото, используемые в README.md файле
 
 ## Фото робота
-  ![Front]((https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Front.jpg)
+  Здесь представлены фото робота спереди, сзади, справа, слева, сверху и снизу.
+  ![Front](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Front.jpg)
   ![Back](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Back.jpg)
   ![Right](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Right.jpg)
   ![Left](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Left.jpg)
@@ -31,7 +32,9 @@
   *Если картинки не открываются, проверьте папку "robot_photo", пожалуйста
 
 ## Схема электромеханического устройства
-  ![Схема](...)
+  В этом блоке представлены фотографии общей схемы робота, а также схемы основной печатной платы робота. Файлы схем, а также файл разводки печатной платы можно найти [в этой папке](https://aliexpress.ru/item/1005004295339153.html?sku_id=12000031808972433](https://github.com/Timofei1412/Cabinet-car/blob/main/schematic)
+  ![Общая схема](https://github.com/Timofei1412/Cabinet-car/blob/main/schematic/General%20scheme.PNG)
+  ![Схема печатной платы](https://github.com/Timofei1412/Cabinet-car/blob/main/schematic/General%20scheme.PNG)
   
   *Если картинка не открывается или вам нужна картинка лучшего качества, проверьте папку "schematic", пожалуйста.
 
