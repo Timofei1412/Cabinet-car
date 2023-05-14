@@ -23,7 +23,7 @@
 
 ## Фото робота
   ![Front](...)
-  ![Back]([...](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Back.jpg))
+  ![Back](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Back.jpg)
   ![Right](...)
   ![Left](...)
   ![Top](...)
