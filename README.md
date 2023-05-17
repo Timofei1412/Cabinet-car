@@ -37,7 +37,7 @@
 ## Схема электромеханического устройства
   В этом блоке представлены фотографии общей схемы робота, а также схемы основной печатной платы робота. Файлы схем, а также файл разводки печатной платы можно найти [в этой папке](https://github.com/Timofei1412/Cabinet-car/blob/main/schematic).
   ![Общая схема](https://github.com/Timofei1412/Cabinet-car/blob/main/schematic/General%20scheme.PNG)
-  ![Схема печатной платы](https://github.com/Timofei1412/Cabinet-car/blob/main/schematic/General%20scheme.PNG)
+  ![Схема печатной платы](https://github.com/Timofei1412/Cabinet-car/blob/main/schematic/Scheme.PNG)
   
   *Если картинка не открывается или вам нужна картинка лучшего качества, проверьте папку "schematic", пожалуйста.
 
