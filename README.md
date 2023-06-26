@@ -1,5 +1,5 @@
 # Команда Кабинетный Болид
-![General](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Превью.jpg)
+![General](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Превью.png)
 
 ### Робот, созданный для решения задачи WRO FutureEngineers 2023
 ### © Беззубцев Федор, Федоров Тимофей 
