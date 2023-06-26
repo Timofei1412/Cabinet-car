@@ -1,5 +1,5 @@
 # Команда Кабинетный Болид
-![General](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/General.jpg)
+![General](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Превью.jpg)
 
 ### Робот, созданный для решения задачи WRO FutureEngineers 2023
 ### © Беззубцев Федор, Федоров Тимофей 
@@ -26,12 +26,12 @@
 
 ## Фото робота
   Здесь представлены фото робота спереди, сзади, справа, слева, сверху и снизу.
-  ![Front](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Front.jpg)
-  ![Back](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Back.jpg)
-  ![Right](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Right.jpg)
-  ![Left](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Left.jpg)
-  ![Top](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Top.jpg)
-  ![Bottom](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Bottom.jpg)
+  ![Front](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Вид%20спереди.jpg)
+  ![Back](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Вид%20сзади.jpg)
+  ![Right](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Вид%20справа.jpg)
+  ![Left](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Вид%20слева.jpg)
+  ![Top](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Вид%20сверху.jpg)
+  ![Bottom](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Вид%20снизу.jpg)
   
   *Если картинки не открываются, проверьте папку "robot_photo", пожалуйста
   
