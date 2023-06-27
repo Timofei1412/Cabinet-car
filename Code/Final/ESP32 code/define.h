@@ -155,7 +155,7 @@ extern long bad_package_count;
 extern long good_package_count;
 extern bool move;
 extern int turns_count;
-extern int turn_direction;
+extern int move_direction;
 extern int16_t circle_buff[1500];
 extern int circle_buff_pointer;
 extern float angle_to_side_line;
@@ -275,6 +275,7 @@ int mod(int n, int M);
 double mod_2(double a, double b);
 short sign(int a);
 point local_to_global(point local, int sector);
+void calculate_move_direction();
 
 struct path{
     //Структура пути робота

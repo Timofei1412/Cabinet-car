@@ -39,7 +39,7 @@ void steer(){
     
     //debug.print(absolute_angle);debug.print(" ");debug.print(target_angle);debug.print(" ");debug.println(error_angle);
 
-    angle *= (1-turn_direction*2);
+    angle *= (1-move_direction*2);
     set_steer_angle(angle);
 }
 

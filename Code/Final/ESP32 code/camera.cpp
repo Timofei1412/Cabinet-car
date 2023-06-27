@@ -30,7 +30,7 @@ void get_data_from_camera(){
         camera_blob_distance = 0; // Расстояние до кубика
         camera_blob_side = 0; // Ширина экрана
     }
-    if(turn_direction){
+    if(move_direction){
         camera_blob_color *= -1;
     }
 }

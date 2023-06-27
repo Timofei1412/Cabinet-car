@@ -12,7 +12,7 @@ float angle_to_side_line=0;
 int distance_to_back_line=0;
 
 // Направление, в котором робот проходит поле
-int turn_direction=1;
+int move_direction=1;
 
 // Координаты робота внутри сегмента
 int robot_x_local=500;
@@ -101,7 +101,7 @@ void refresh_points(){
         sector_change_flag = 0;
         if((robot_y_local > 2000 || robot_x_local < -10)&&next_segment){
             robot_sector += 1;
-            robot_angle_local += 90*(1-turn_direction*2);
+            robot_angle_local += 90*(1-move_direction*2);
             sector_change_flag = 1;
             next_segment = 0;
         }
@@ -482,12 +482,14 @@ static unsigned short brake_count=1; // Количество точек разр
 static dynamic_segments segments; // Сегменты
 static unsigned short joined_segments[10][10]; // Объединённые сегменты
 static line joined_segments_approximation[10]; // Апроксимация объединённых сегментов
-static unsigned short segment_borders_count[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // Количество сегментов внутри каждого объединённого сегмента
+static unsigned short joined_segments_borders_count[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // Количество сегментов внутри каждого объединённого сегмента
 static unsigned short joined_segments_count=0; // Количество объединённых сегментов
+double min_angles[4] = {9999999, 9999999, 9999999, 9999999}; // минимальные углы для нахождения какой из сегментов является какой стенкой
+int min_indexes[4]={0, 0, 0, 0}; // индекс сегмента наиболее подходящего для стенки
 
 void separate_lines(){
     //Функция разделяет набор точек с лидара, на 4 стенки и апроксимирует их до прямых
-    if(turn_direction){
+    if(move_direction){
         point tmp_point;
         for(int i=0; i<lidar.points_amount/2; i++){
             tmp_point=points_xy[i];
@@ -572,21 +574,21 @@ void separate_lines(){
 
     if(segments.segments_count != 0){
         for(int i=0; i<10; i++){
-            segment_borders_count[i] = 0;
+            joined_segments_borders_count[i] = 0;
         }
         joined_segments_count=0;
 
         //Объединяем вместе сегменты, у которых близкие углы
-        joined_segments[0][segment_borders_count[0]++] = segments.segments[0][0];
-        joined_segments[0][segment_borders_count[0]++] = segments.segments[0][1];
+        joined_segments[0][joined_segments_borders_count[0]++] = segments.segments[0][0];
+        joined_segments[0][joined_segments_borders_count[0]++] = segments.segments[0][1];
         for(int i=1; i<segments.segments_count; i++){
             //segments.segments_apr[i-1].print();segments.segments_apr[i].print();Serial.println(" ");
             //Serial.print(angle_of_line(segments.segments_apr[i-1]));Serial.print(" ");Serial.println(angle_of_line(segments.segments_apr[i]));
             if(int(abs(angle_of_line(segments.segments_apr[i-1]) - angle_of_line(segments.segments_apr[i])))%360 > 25){
                 joined_segments_count++;
             }
-            joined_segments[joined_segments_count][segment_borders_count[joined_segments_count]++] = segments.segments[i][0];
-            joined_segments[joined_segments_count][segment_borders_count[joined_segments_count]++] = segments.segments[i][1];
+            joined_segments[joined_segments_count][joined_segments_borders_count[joined_segments_count]++] = segments.segments[i][0];
+            joined_segments[joined_segments_count][joined_segments_borders_count[joined_segments_count]++] = segments.segments[i][1];
         }
         joined_segments_count++;
 
@@ -601,24 +603,27 @@ void separate_lines(){
         Serial.print("\n");*/
 
         //Проверяем на то имеют ли первый и последний сегмент одинаковые углы, и объединяем их в случае необходимости
-        if(int(abs(angle_of_line(calculate_line_by_intervals(joined_segments[0], segment_borders_count[0])) - angle_of_line(calculate_line_by_intervals(joined_segments[joined_segments_count-1], segment_borders_count[joined_segments_count-1]))))% 360 < 25){
-            for(int i=segment_borders_count[0]-1; i>=0; i--){
-                joined_segments[0][i+segment_borders_count[joined_segments_count-1]]=joined_segments[0][i];
+        if(int(abs(angle_of_line(calculate_line_by_intervals(joined_segments[0], joined_segments_borders_count[0])) - angle_of_line(calculate_line_by_intervals(joined_segments[joined_segments_count-1], joined_segments_borders_count[joined_segments_count-1]))))% 360 < 25){
+            for(int i=joined_segments_borders_count[0]-1; i>=0; i--){
+                joined_segments[0][i+joined_segments_borders_count[joined_segments_count-1]]=joined_segments[0][i];
             }
-            for(int i=0; i<segment_borders_count[joined_segments_count-1]; i++){
+            for(int i=0; i<joined_segments_borders_count[joined_segments_count-1]; i++){
                 joined_segments[0][i]=joined_segments[joined_segments_count-1][i];
             }
-            segment_borders_count[0] += segment_borders_count[joined_segments_count-1];
+            joined_segments_borders_count[0] += joined_segments_borders_count[joined_segments_count-1];
             joined_segments_count --;
         }
 
         //Аппроксимируем объеденённые сегменты до прямых
         //Вычисляем какая из линий для робота является передней, боковой и задней
         //Передняя имеет угол наиболее близкий к 90, боковая к 180, задняя к 270
-        double min_angles[4] = {9999999, 9999999, 9999999, 9999999};
-        int min_indexes[4]={0, 0, 0, 0};
+        //При расчёте учитываем предидущей угол робота
+        for(int i=0; i<4; i++){
+            min_angles[i] = 9999999;
+            min_indexes[i]= 0;
+        }
         for(int i=0; i<joined_segments_count; i++){
-            joined_segments_approximation[i] = calculate_line_by_intervals(joined_segments[i], segment_borders_count[i]);
+            joined_segments_approximation[i] = calculate_line_by_intervals(joined_segments[i], joined_segments_borders_count[i]);
             double tmp_angle = angle_of_line(joined_segments_approximation[i]);
             for(int j=0; j<4; j++){
                 double ang_diff = mod_2(abs((tmp_angle + (180 - robot_angle_local)) - mod((360 - (j+1)*90), 360)), 360);
@@ -636,7 +641,7 @@ void separate_lines(){
         else{
             orient_by = 0;
         }
-        if(turn_direction){
+        if(move_direction){
             orient_by = !orient_by;
         }
 
@@ -651,13 +656,13 @@ void separate_lines(){
         debug.println(min_indexes[2]);
 
         //Финально апроксимируем объединённые сегмент до соответствующих линий
-        forward_line = joined_segments_approximation[min_indexes[0+2*turn_direction]];
+        forward_line = joined_segments_approximation[min_indexes[0+2*move_direction]];
         side_line = joined_segments_approximation[min_indexes[1]];
-        back_line = joined_segments_approximation[min_indexes[2-2*turn_direction]];
+        back_line = joined_segments_approximation[min_indexes[2-2*move_direction]];
 
         /*debug.println();
             for (int i=0; i<joined_segments_count; i++){
-                for(int j=0; j<segment_borders_count[i]; j++){
+                for(int j=0; j<joined_segments_borders_count[i]; j++){
                     debug.print(joined_segments[i][j]);
                     //debug.print(" ");
                     //points_xy[joined_segments[i][j]].print();
@@ -669,58 +674,10 @@ void separate_lines(){
         }
         debug.print("\n");*/
 
-        /*if(joined_segments_count > 4){
-            Serial.println();
-            for (int i=0; i<joined_segments_count; i++){
-                for(int j=0; j<segment_borders_count[i]; j++){
-                    Serial.print(joined_segments[i][j]);
-                    Serial.print(" ");
-                    points_xy[joined_segments[i][j]].print();
-                    Serial.print(" : ");
-                }
-                Serial.print(" ; ");
-                Serial.print(angle_of_line(joined_segments_approximation[i]));
-                Serial.print("\n");
-            }
-            Serial.print("\n");
-
-            for (int i=0; i<segments.segments_count; i++){
-                for(int j=0; j<2; j++){
-                    Serial.print(segments.segments[i][j]);
-                    Serial.print(" ");
-                }
-                Serial.print(" ; ");
-                Serial.print(angle_of_line(segments.segments_apr[i]));
-                Serial.print("\n");
-            }
-            Serial.print("\n");
-
-            delay(10000);
-        }*/
-
-        /*for(int i=0; i<joined_segments_count; i++){
-            for(int j=0; j<2; j++){
-                Serial.print(intersections[j][i].x);
-                Serial.print(" ");
-                Serial.print(intersections[j][i].y);
-                Serial.print("\n");
-            }
-        }*/
-
         /*Serial.println();
         for (int i=0; i<joined_segments_count; i++){
-            for(int j=0; j<segment_borders_count[i]; j++){
+            for(int j=0; j<joined_segments_borders_count[i]; j++){
                 Serial.print(joined_segments[i][j]);
-                Serial.print(" ");
-            }
-            Serial.print("\n");
-        }
-        Serial.print("\n");*/
-
-        /*Serial.println();
-        for (int i=0; i<segments_count; i++){
-            for(int j=0; j<segment_borders_count[i]; j++){
-                Serial.print(segments_borders[i][j]);
                 Serial.print(" ");
             }
             Serial.print("\n");
@@ -730,6 +687,20 @@ void separate_lines(){
         //forward_line.visualise();
         //side_line.visualise();
         //back_line.visualise();
+    }
+}
+
+void calculate_move_direction(){
+    //Функция вычесляет в каком направление должен двигатся робот
+
+    if(distance_between_points(joined_segments[min_indexes[1]][0], joined_segments[min_indexes[1]][joined_segments_borders_count[min_indexes[1]]-1]) < 
+    distance_between_points(joined_segments[min_indexes[3]][0], joined_segments[min_indexes[3]][joined_segments_borders_count[min_indexes[3]]-1])){
+        digitalWrite(green_led, HIGH);
+        digitalWrite(red_led, LOW);
+    }
+    else{
+        digitalWrite(green_led, LOW);
+        digitalWrite(red_led, HIGH);
     }
 }
 
