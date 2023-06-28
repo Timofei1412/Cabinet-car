@@ -84,7 +84,6 @@
 ## Сборка робота
   1) Необходимо напечатать все пластиковые части на 3D принтере. Для этого зайдите в папку "3D-models" и распечатайте все модели на 3D-принтере.
   2) Необходимо купить такие компоненты как: [Esp32 Lolin32](https://compacttool.ru/plata-razrabotchika-wemos-lolin32-esp-wroom-32-bluetooth-btblewifi),[Понижающий преобразователь](https://www.ozon.ru/product/ponizhayushchiy-preobrazovatel-napryazheniya-gsmin-mp1584en-dc-dc-zelenyy-285604865/?asb=uujFsyWmM5ZedbAN1P4vUE4Ul%252BvjDnRlTe9Ct5nkEX4%253D&asb2=7DaiogtcmMVU4mrKaqHwJffn-PwBVsE-z86YZYDSHlCm7M0cLorGFQkAnXwPXJMA&avtc=1&avte=4&avts=1687894174&keywords=mp1584en&sh=leogiH1JgA), [Повышающий преобразователь](https://ampero.ru/lm2577-voltage-regulator-povyshayuschiy-dc-dc-preobrazovatel-3v-34v-v-4v-35v.html), [лидар LD-19](https://aliexpress.ru/item/1005004295339153.html?sku_id=12000031808972433), [камеру TrackingCam](https://robotbaza.ru/product/modul-tehnicheskogo-zreniya-trackingcam), [мотор Polulu](https://www.pololu.com/product/3063), [сервопривод SG-90S](https://ampero.ru/mg90s-servoprivod-dlya-proektov-arduino.html), [драйвер мотора](https://www.wildberries.ru/catalog/60795780/detail.aspx). Для робота также необходимы 4 подшипника 3x9x7, 16 подшипников 2x5x2.5, 2 подшипника 10x15x6, латунные втулки 3x6x4, [дифференциал](https://rc-today.ru/product/differencial-hsp-60065/) и четыре силиконовые [шины Pololu](https://www.pololu.com/product/3408). Для питания робота можно использовать любую 7.4V 2S Li-Po батарею размером 53x30x11.5мм, например, мы используем вот эту [батарею](http://realrc.ru/product.php?id_product=416).  
-  2) Необходимо купить такие компоненты как: [Esp32 Lolin32](https://compacttool.ru/plata-razrabotchika-wemos-lolin32-esp-wroom-32-bluetooth-btblewifi),[Линейный понижатель](),[](),[лидар LD-19](https://aliexpress.ru/item/1005004295339153.html?sku_id=12000031808972433), [камеру TrackingCam](https://robotbaza.ru/product/modul-tehnicheskogo-zreniya-trackingcam), [мотор Polulu](https://www.pololu.com/product/3063), [сервопривод SG-90S](https://ampero.ru/mg90s-servoprivod-dlya-proektov-arduino.html), [драйвер мотора](https://www.wildberries.ru/catalog/60795780/detail.aspx), спаяйте печатную плату робота (папка "schematic"). Для робота также необходимы 4 подшипника 3x9x7, 16 подшипников 2x5x2.5, 2 подшипника 10x15x6, латунные втулки 3x6x4, [дифференциал](https://rc-today.ru/product/differencial-hsp-60065/) и четыре силиконовые [шины Pololu](https://www.pololu.com/product/3408). Для питания робота можно использовать любую 7.4V 2S Li-Po батарею размером 53x30x11.5мм, например, мы используем вот эту [батарею](http://realrc.ru/product.php?id_product=416).  
   3) Для сборки напечатаных и купленных компонентов понадобится 16 винтов и гаек различных размеров(М3 /16, /10... и М2 /10):
   4) В соответствии с файлом печатной платы, спаяйте печатную плату робота (папка "schematic").
   5) Открыв 3Д файл робота в [папке](https://github.com/Timofei1412/Cabinet-car/tree/main/New%20robot%20models), соберите робота, как показано на модели.
@@ -96,7 +95,7 @@
   
 ## Установка необходимых программ и прошивка платы
 
-  - Для программирования робота вам понадобится [Arduino IDE](https://www.arduino.cc/en/software). Это программное обеспечение с открытым исходным кодом позволяет легко писать код и загружать его в плату. Откройте exe-файл и следуйте инструкциям программы установки.
+  ### Для программирования робота вам понадобится [Arduino IDE](https://www.arduino.cc/en/software). Это программное обеспечение с открытым исходным кодом позволяет легко писать код и загружать его в плату. Откройте exe-файл и следуйте инструкциям программы установки.
 
   - Установите ESP32 в менеджере плат Arduino IDE, добавив ссылку (https://dl.espressif.com/dl/package_esp32_index.json) в настройки IDE.
     - Сначала добавьте дополнительные ссылки менеджера плат
@@ -114,7 +113,7 @@
   - Выберите плату "WEMOS LOLIN32". Подключите плату с ESP32 с помощью кабеля USB C к компьютеру и выберите соответствующий порт в IDE arduino. Нажмите кнопку "Загрузить".
   ![Upload](readme_photo/upload_program.png)
   
-  - Также вам понадобится[TrackingCam](https://appliedrobotics.ru/?page_id=633). Скачайте и откройте exe-файл и следуйте инструкциям программы установки.
+  ### Также вам понадобится[TrackingCam](https://appliedrobotics.ru/?page_id=633). Скачайте и откройте exe-файл и следуйте инструкциям программы установки.
   - После скачивания откройте программу и настройте камеру.
     - Подключите камеру к компьютеру и откройте программу.
     - Подберите настройки для зеленого и красного кубика(не забудьте переключить поиск(полоска снизу)на блоб два, после настройки первого кубика, иначе настройки запишутся поверх прошлых)
