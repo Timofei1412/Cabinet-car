@@ -17,7 +17,7 @@
 
 ## Содержание репозитория
   - Папка "Robot models" содержит все модели старой версии робота
-  - Папка "Final code" содержит код робота
+  - Папка "Code" содержит код робота
   - Папка "schematic" содержит электромеханическую схему робота
   - Папка "team_photo" содержит два фото команды по регламенту
   - Папка "robot_photo" содержит обзорные фото робота с шести сторон
@@ -40,7 +40,7 @@
   ![Система](https://github.com/Timofei1412/Cabinet-car/blob/main/robot_photo/Система%20рулевого%20управления.jpg)
 
 ## О наших электрических и механических компонентах
-![About](readme_photo/about.jpg)
+![About](https://github.com/Timofei1412/Cabinet-car/blob/main/readme_photo/about(1).png)
 ### Лидар
   В нашем роботе используется LD19. Он основан на принципе лазерной триангуляции расстояния и использует высокоскоростной процессор для сбора и обработки данных. Система измеряет данные о расстоянии более 4500 раз в секунду. Дальномер LD19 вращается по часовой стрелке и выполняет 360-градусное лазерное сканирование окружающего пространства. Полученные данные преобразуются главным микроконтроллером для построения виртуальных стен. Данный лидар имелся в наличии и является достаточно простым для использования, поэтому мы решили использовать именно его.
 
@@ -83,7 +83,7 @@
 
 ## Сборка робота
   1) Необходимо напечатать все пластиковые части на 3D принтере. Для этого зайдите в папку "3D-models" и распечатайте все модели на 3D-принтере.
-  2) Необходимо купить такие компоненты как: [Esp32 Lolin32](https://compacttool.ru/plata-razrabotchika-wemos-lolin32-esp-wroom-32-bluetooth-btblewifi),[Линейный понижатель](https://www.ozon.ru/product/ponizhayushchiy-preobrazovatel-napryazheniya-gsmin-mp1584en-dc-dc-zelenyy-285604865/?asb=uujFsyWmM5ZedbAN1P4vUE4Ul%252BvjDnRlTe9Ct5nkEX4%253D&asb2=7DaiogtcmMVU4mrKaqHwJffn-PwBVsE-z86YZYDSHlCm7M0cLorGFQkAnXwPXJMA&avtc=1&avte=4&avts=1687894174&keywords=mp1584en&sh=leogiH1JgA), [Повышающий преобразователь](https://ampero.ru/lm2577-voltage-regulator-povyshayuschiy-dc-dc-preobrazovatel-3v-34v-v-4v-35v.html), [лидар LD-19](https://aliexpress.ru/item/1005004295339153.html?sku_id=12000031808972433), [камеру TrackingCam](https://robotbaza.ru/product/modul-tehnicheskogo-zreniya-trackingcam), [мотор Polulu](https://www.pololu.com/product/3063), [сервопривод SG-90S](https://ampero.ru/mg90s-servoprivod-dlya-proektov-arduino.html), [драйвер мотора](https://www.wildberries.ru/catalog/60795780/detail.aspx), спаяйте печатную плату робота (папка "schematic"). Для робота также необходимы 4 подшипника 3x9x7, 16 подшипников 2x5x2.5, 2 подшипника 10x15x6, латунные втулки 3x6x4, [дифференциал](https://rc-today.ru/product/differencial-hsp-60065/) и четыре силиконовые [шины Pololu](https://www.pololu.com/product/3408). Для питания робота можно использовать любую 7.4V 2S Li-Po батарею размером 53x30x11.5мм, например, мы используем вот эту [батарею](http://realrc.ru/product.php?id_product=416).  
+  2) Необходимо купить такие компоненты как: [Esp32 Lolin32](https://compacttool.ru/plata-razrabotchika-wemos-lolin32-esp-wroom-32-bluetooth-btblewifi),[Понижающий преобразователь](https://www.ozon.ru/product/ponizhayushchiy-preobrazovatel-napryazheniya-gsmin-mp1584en-dc-dc-zelenyy-285604865/?asb=uujFsyWmM5ZedbAN1P4vUE4Ul%252BvjDnRlTe9Ct5nkEX4%253D&asb2=7DaiogtcmMVU4mrKaqHwJffn-PwBVsE-z86YZYDSHlCm7M0cLorGFQkAnXwPXJMA&avtc=1&avte=4&avts=1687894174&keywords=mp1584en&sh=leogiH1JgA), [Повышающий преобразователь](https://ampero.ru/lm2577-voltage-regulator-povyshayuschiy-dc-dc-preobrazovatel-3v-34v-v-4v-35v.html), [лидар LD-19](https://aliexpress.ru/item/1005004295339153.html?sku_id=12000031808972433), [камеру TrackingCam](https://robotbaza.ru/product/modul-tehnicheskogo-zreniya-trackingcam), [мотор Polulu](https://www.pololu.com/product/3063), [сервопривод SG-90S](https://ampero.ru/mg90s-servoprivod-dlya-proektov-arduino.html), [драйвер мотора](https://www.wildberries.ru/catalog/60795780/detail.aspx), спаяйте печатную плату робота (папка "schematic"). Для робота также необходимы 4 подшипника 3x9x7, 16 подшипников 2x5x2.5, 2 подшипника 10x15x6, латунные втулки 3x6x4, [дифференциал](https://rc-today.ru/product/differencial-hsp-60065/) и четыре силиконовые [шины Pololu](https://www.pololu.com/product/3408). Для питания робота можно использовать любую 7.4V 2S Li-Po батарею размером 53x30x11.5мм, например, мы используем вот эту [батарею](http://realrc.ru/product.php?id_product=416).  
   2) Необходимо купить такие компоненты как: [Esp32 Lolin32](https://compacttool.ru/plata-razrabotchika-wemos-lolin32-esp-wroom-32-bluetooth-btblewifi),[Линейный понижатель](),[](),[лидар LD-19](https://aliexpress.ru/item/1005004295339153.html?sku_id=12000031808972433), [камеру TrackingCam](https://robotbaza.ru/product/modul-tehnicheskogo-zreniya-trackingcam), [мотор Polulu](https://www.pololu.com/product/3063), [сервопривод SG-90S](https://ampero.ru/mg90s-servoprivod-dlya-proektov-arduino.html), [драйвер мотора](https://www.wildberries.ru/catalog/60795780/detail.aspx), спаяйте печатную плату робота (папка "schematic"). Для робота также необходимы 4 подшипника 3x9x7, 16 подшипников 2x5x2.5, 2 подшипника 10x15x6, латунные втулки 3x6x4, [дифференциал](https://rc-today.ru/product/differencial-hsp-60065/) и четыре силиконовые [шины Pololu](https://www.pololu.com/product/3408). Для питания робота можно использовать любую 7.4V 2S Li-Po батарею размером 53x30x11.5мм, например, мы используем вот эту [батарею](http://realrc.ru/product.php?id_product=416).  
   3) Для сборки напечатаных и купленных компонентов понадобится 16 винтов и гаек различных размеров(М3 /16, /10... и М2 /10):
   4) В соответствии с файлом печатной платы, необходимо напаять компоненты на неё.
@@ -121,10 +121,9 @@
  
 
 ## Запуск робота
-
  - Загрузить в робота нужный код
- - Включите робота нажатием на кнопку с фиксацией.
  - Проведите жеребьевку, как указано в правилах
  - Поставьте робота на стартувую позицию
+ - Включите робота переключением тумблера в замкнутое положение
  - Нажмите кнопку для запуска
 
