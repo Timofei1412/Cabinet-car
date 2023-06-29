@@ -115,7 +115,7 @@
     ![AnalogWrite](readme_photo/esp32_AnalogWrite_install.png)
     - И библиотеку ESP32Servo.
     ![ESP32Servo](readme_photo/esp32_servo_install.png)
-  - Выберите плату "WEMOS LOLIN32". Подключите плату с ESP32 с помощью кабеля USB C к компьютеру и выберите соответствующий порт в IDE arduino. Нажмите кнопку "Загрузить".
+  - Выберите плату "WEMOS LOLIN32". Подключите плату с ESP32 с помощью кабеля Micro USB к компьютеру и выберите соответствующий порт в IDE arduino. Нажмите кнопку "Загрузить".
   ![Upload](readme_photo/upload_program.png)
   
   - Также вам понадобится[TrackingCam](https://appliedrobotics.ru/?page_id=633). Скачайте и откройте exe-файл и следуйте инструкциям программы установки.
