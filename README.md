@@ -5,8 +5,8 @@
 ### © Беззубцев Федор, Федоров Тимофей 
 
 ## Наши фотографии
-  ![Обычная](https://github.com/Timofei1412/Cabinet-car/blob/main/team_photo/Фотграфия%20команды.jpg)
-  ![Смешная](https://github.com/Timofei1412/Cabinet-car/blob/main/team_photo/Смешная%20фотография.jpg)
+  [Обычная фотография](https://github.com/Timofei1412/Cabinet-car/blob/main/team_photo/Фотграфия%20команды.jpg)
+  [Смешная фотография](https://github.com/Timofei1412/Cabinet-car/blob/main/team_photo/Смешная%20фотография.jpg)
 <br>
 
 ## Видео заезда нашего робота на [Youtube](https://www.youtube.com/watch?v=HyZGGjBNKJ4&ab_channel=qZer0)
