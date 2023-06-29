@@ -8,11 +8,13 @@ bool turning = 0;
 
 volatile bool reading_flag = 0;
 
+//Структура точки лидара в том формате, в котором её передаёт лидар
 typedef struct __attribute__((packed)) {
   uint16_t distance;
   uint8_t intensity;
 } LidarPoint;
 
+//Структура пакета лидар в том формате, в котором её передаёт лидар
 typedef struct __attribute__((packed)) {
   uint8_t header;
   uint8_t length;
@@ -29,6 +31,7 @@ typedef struct {
   int16_t y;
 } Point;
 
+//Таблица хэш используется для проверки целосности пакета с лидара
 const byte CrcTable[256] = {
  0x00, 0x4d, 0x9a, 0xd7, 0x79, 0x34, 0xe3,
  0xae, 0xf2, 0xbf, 0x68, 0x25, 0x8b, 0xc6, 0x11, 0x5c, 0xa9, 0xe4, 0x33,
@@ -54,112 +57,103 @@ const byte CrcTable[256] = {
  0x5a, 0x06, 0x4b, 0x9c, 0xd1, 0x7f, 0x32, 0xe5, 0xa8
 };
 
-LidarPackage package;
+LidarPackage package; //Пакет получаемый с лидара
+uint8_t num_pkg_byte = 0; //Количество полученных байт пакета
 
-bool flag = true;
-uint8_t num_pkg_byte = 0;
+double old_angle = 100000; //Угол предидущей точки
 
+//Счётчик целых и битых пакетов (используется для отлаки)
 long good_package_count = 0;
 long bad_package_count = 0;
 
+//Массив точек для визуализации
 int16_t circle_buff[1500];
 int circle_buff_pointer = 2;
 
 void LidarRead() {
-  if (SerialLidar.available()) {
+  //Функция чтения данных с лидара
+
+  while (SerialLidar.available()) {
+    //Накопление байт в структуру идентичную структуре из даташита
     uint8_t cur_byte = *((uint8_t*)&package + num_pkg_byte) = SerialLidar.read();
-        
+    
     if ((num_pkg_byte == 0 && cur_byte != LIDAR_HEADER) || (num_pkg_byte == 1 && cur_byte != LIDAR_LENGTH)) { 
       num_pkg_byte = 0;
-    } else {
+    }
+    else {
       num_pkg_byte++;
     }
 
+    //Если накопилось достаточно байт и контрольная сумма сходится обрабатываем пакет
     if (num_pkg_byte == sizeof(LidarPackage) && CalCRC((uint8_t*)&package, sizeof(LidarPackage) - 1) == package.crc) {
       ProcessingPackage();
       good_package_count++;
-      //Serial.println(millis());
     }
-
     if (num_pkg_byte == sizeof(LidarPackage) && CalCRC((uint8_t*)&package, sizeof(LidarPackage) - 1) != package.crc) {
-       // for (uint8_t i = 0; i < 47; ++i) {
-       //   Serial.print(*((uint8_t*)&package + num_pkg_byte));Serial.print(' ');
-       // }
-       // Serial.println();
        bad_package_count++;
     }
-
     num_pkg_byte = num_pkg_byte % sizeof(LidarPackage);
   }
 }
 
 void ProcessingPackage() {
-    double delta = 0;
-    /*package.start_angle -= 5;
-    package.end_angle -= 5;
+  //Функция обработки пакета лидара
 
-    if(package.start_angle < 0){
-      package.start_angle = 360.0-package.start_angle;
-    }
-    if(package.end_angle < 0){
-      package.end_angle = 360.0-package.end_angle;
-    }*/
+  //Вычисление шага угла между точками в пакете использую начальный и конечный угол
+  double delta = 0; //Шаг угла между двумя точками
+  if(package.start_angle < package.end_angle){
+    delta = (package.end_angle-package.start_angle)/100.0/12.0;
+  }
+  else{
+    delta = ((360 - package.start_angle/100.0)+package.end_angle/100.0)/12.0;
+  }
 
-    if(package.start_angle < package.end_angle){
-        delta = (package.end_angle-package.start_angle)/100.0/12.0;
+  //Обработка каждой из точек
+  for (int i = 0; i < POINT_PER_PACK; ++i) {
+    double angle = (package.start_angle / 100.0) + (delta * i); // Угол точки
+    if (angle > 360){
+      angle -= 360;
     }
-    else{
-        delta = ((360 - package.start_angle/100.0)+package.end_angle/100.0)/12.0;
-    }
-
-    for (int i = 0; i < POINT_PER_PACK; ++i) {
-        double angle = (package.start_angle / 100.0) + (delta * i);
-        if (angle > 360){
-            angle -= 360;
-        }
-        processingIntensityPoint(package.points[i].distance, package.points[i].intensity, angle);
-    }
+    processingIntensityPoint(package.points[i].distance, package.points[i].intensity, angle);
+  }
 }
 
-double old_angle = 100000;
-
 void processingIntensityPoint(uint16_t distance, uint8_t intensity, double angle) {
-    if (distance > 4500) {
-        return;
-    }
-    //Serial.println(angle);
-    if (angle < old_angle) {
-        //Serial.print(angle);
-        //Serial.print(" ");
-        //Serial.println(old_angle);
-        lidar.new_revolution = 1;
-        lidar.poits_amount = lidar.current_point;
-        //circle_buff[0] = -(1 << 15);
-        //circle_buff[1] = lidar.poits_amount;
-        //debug.write((byte*)circle_buff, (circle_buff_pointer) * 2);
-        circle_buff_pointer = 2;
-        lidar.current_point = 0;
+  //distance - дистанция до точки, intensity - интенсивность вернувшегося луча, angle - угол точки
+  //Функция обаботки точки в пакете лидара
+  //Функция добавляет точки из пакета в общий массив точек с лидара и вызывает функцию обработки точек в случае завершение лидаром полного круга
 
-    }
-    old_angle = angle;
+  //Если точка слишком далеко или слишком близко, не учитываем её
+  if (distance > 1800 || distance < 200) {
+      return;
+  }
 
-    if (distance != 0) {
-        double angle_rad = radians(angle);
-        //Serial.println(lidar.current_point);
-        points_xy[lidar.current_point++] = point(int(distance * sin(angle_rad) + 0.5), int(distance * cos(angle_rad) + 0.5), float(angle));
-        circle_buff[circle_buff_pointer++] = points_xy[lidar.current_point].x;
-        circle_buff[circle_buff_pointer++] = points_xy[lidar.current_point].y;
-    }
+  //Если текущий угол меньше предыдущего угла - произощёл переход через ноль и лидар начал новый круг
+  if (angle < old_angle) {
+    //Вызываем функцию обработки точек
+    lidar.new_revolution = 1;
+    lidar.points_amount = lidar.current_point;
+    lidar.current_point = 0;
+    refresh_points();
+  }
+  old_angle = angle;
+
+  if (distance != 0) {
+    //Пересчитываем координаты точки из полярной в декартовую и запись её в общий массив точек
+    double angle_rad = radians(angle);
+    points_xy[lidar.current_point++] = point(int(distance * sin(angle_rad) + 0.5), int(distance * cos(angle_rad) + 0.5));
+    //Запись точек в массив для их визуализации (дебаг)
+    circle_buff[circle_buff_pointer++] = points_xy[lidar.current_point-1].x;
+    circle_buff[circle_buff_pointer++] = points_xy[lidar.current_point-1].y;
+  }
 }
 
 uint8_t CalCRC(uint8_t *p, uint8_t length) {
+  //Функция проверки целосности пакета
+
   uint8_t crc = 0;
   for (uint8_t i = 0; i < length; ++i) {
     crc = CrcTable[(crc ^ *p++) & 0xff];
   }
   return crc;
 }
-
-
-
- 
